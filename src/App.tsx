@@ -5,7 +5,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import User from './components/model/User';
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import Search from './components/Search';
+import Search from './components/SearchComps/Search';
 
 function App() {
 
