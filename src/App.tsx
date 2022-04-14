@@ -5,8 +5,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import User from './components/model/User';
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import Search from './components/Search';
-import background from "./pics/KUBU.png";
+import Search from './components/SearchComps/Search';
 import { render } from '@testing-library/react';
 import './login.css';
 
