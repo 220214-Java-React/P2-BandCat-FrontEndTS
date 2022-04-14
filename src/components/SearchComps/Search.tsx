@@ -6,6 +6,7 @@ import ByUsername from "./ByUsername";
 import ByInstrument from "./ByInstrument";
 import Instrument from "../model/Instrument";
 import axios from "axios";
+import ShowUsers from "./ShowUsers";
 
 // Interface concerning currentUser state from App.tsx
 interface Props
@@ -29,6 +30,9 @@ export default function Search({currentUser, setCurrentUser}: Props)
         }
     );
 
+    const [usersFound, setUsersFound] = useState<User[]>([]);
+
+    useEffect(() => console.log(usersFound), [usersFound]);
     useEffect(() => console.log(instrumentToSearch), [instrumentToSearch]);
 
     // Changes search criteria
@@ -40,20 +44,27 @@ export default function Search({currentUser, setCurrentUser}: Props)
     }
 
     // When search button is pressed
-    function search()
+    async function search()
     {
         // Axios request for users using usernameToSearch
         switch(searchCriteria)
         {
             case 0:
                 // axios for username
-                let userFound = axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
-                .then((response) => response.data)
-                .then(data => console.log(data));
+                let foundUser = await axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
+                .then((response) => response.data);
+
+                setUsersFound(usersFound => [...usersFound, foundUser]);
+
                 break;
 
             case 1:
                 // axios for instrument
+                let foundInstruments = await axios.get("http://localhost:8080/instruments/all")
+                .then((response) => response.data);
+
+                setUsersFound(foundInstruments);
+
                 break;
         }
     }
@@ -77,6 +88,8 @@ export default function Search({currentUser, setCurrentUser}: Props)
             {searchCriteria == 0 ? 
             <ByUsername usernameToSearch={usernameToSearch} setUsernameToSearch={setUsernameToSearch}/>: 
             <ByInstrument instrumentToSearch={instrumentToSearch} setInstrumentToSearch={setInstrumentToSearch}/>}
+
+            {usersFound ? <ShowUsers usersFound={usersFound}/> : null}
 
             <button type="button" onClick={search}>Search</button>
             
