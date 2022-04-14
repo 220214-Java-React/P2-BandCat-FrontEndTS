@@ -4,6 +4,8 @@ import User from "../model/User";
 import {useEffect, useState} from "react";
 import ByUsername from "./ByUsername";
 import ByInstrument from "./ByInstrument";
+import Instrument from "../model/Instrument";
+import axios from "axios";
 
 // Interface concerning currentUser state from App.tsx
 interface Props
@@ -20,6 +22,14 @@ export default function Search({currentUser, setCurrentUser}: Props)
     // Username to search by
     const [usernameToSearch, setUsernameToSearch] = useState('');
 
+    const [instrumentToSearch, setInstrumentToSearch] = useState<Instrument>(
+        {
+            instrumentName: InstrumentOptions.BASS,
+            confidence: 5
+        }
+    );
+
+    useEffect(() => console.log(instrumentToSearch), [instrumentToSearch]);
 
     // Changes search criteria
     function changeSearch()
@@ -33,6 +43,19 @@ export default function Search({currentUser, setCurrentUser}: Props)
     function search()
     {
         // Axios request for users using usernameToSearch
+        switch(searchCriteria)
+        {
+            case 0:
+                // axios for username
+                let userFound = axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
+                .then((response) => response.data)
+                .then(data => console.log(data));
+                break;
+
+            case 1:
+                // axios for instrument
+                break;
+        }
     }
 
     // Contain functionality 
@@ -53,7 +76,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
             {/* Conditional render based search criteria => if By Username, show ByUsername component, otherwise, show the ByInstrument component */}
             {searchCriteria == 0 ? 
             <ByUsername usernameToSearch={usernameToSearch} setUsernameToSearch={setUsernameToSearch}/>: 
-            <ByInstrument />}
+            <ByInstrument instrumentToSearch={instrumentToSearch} setInstrumentToSearch={setInstrumentToSearch}/>}
 
             <button type="button" onClick={search}>Search</button>
             

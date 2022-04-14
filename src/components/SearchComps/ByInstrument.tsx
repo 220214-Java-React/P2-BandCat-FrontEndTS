@@ -9,12 +9,14 @@ interface Props
 }
 
 // Shows the Instrument search component
-export default function ByInstrument(/*{instrumentToSearch, setInstrumentToSearch} : Props*/)
+export default function ByInstrument({instrumentToSearch, setInstrumentToSearch} : Props)
 {
     // Changes Instrument
     function changeSearch(e : any)
     {
-        //setInstrumentToSearch(e.target.value);
+        setInstrumentToSearch({
+            ...instrumentToSearch,
+            [e.target.name]: e.target.value});
     }
 
     return (
@@ -24,7 +26,9 @@ export default function ByInstrument(/*{instrumentToSearch, setInstrumentToSearc
                 Instrument:<span> </span>
             </label>
             <select
-            id="instrument_name"
+            name="instrumentName"
+            value={instrumentToSearch?.instrumentName}
+            onChange={changeSearch}
             >
                 <option value={InstrumentOptions.BASS}>Bass</option>
                 <option value={InstrumentOptions.CLARINET}>Clarinet</option>
@@ -42,7 +46,11 @@ export default function ByInstrument(/*{instrumentToSearch, setInstrumentToSearc
             <label>
                 Confidence:<span> </span>
             </label>
-            <select id="confidence" >
+            <select 
+            name="confidence"
+            value={instrumentToSearch?.confidence}
+            onChange={changeSearch}
+             >
                 <option value={1}>1</option>
                 <option value={2}>2</option>
                 <option value={3}>3</option>
