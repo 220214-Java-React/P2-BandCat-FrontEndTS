@@ -96,110 +96,133 @@ export default function SignUp() {
     <Navigate to="/login" />
   ) : (
     <>
-      <form>
-        {/* Input For User Fields */}
+      <div className="backgroundColor">
+        <img className="bandCat" src={require('../pics/KUBU.png')}></img>
+        <div className="center">
 
-        {/* Username*/}
-        <label>
-          Username:<span> </span>
-        </label>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={username}
-          onChange={changeUsername}
-        />
-        <br />
+          <br></br>
+          <br></br>
 
-        {/* Password*/}
-        <label>
-          Password:<span> </span>
-        </label>
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={password}
-          onChange={changePassword}
-        />
-        <br />
+          <div className="topBox">
 
-        {/* Email*/}
-        <label>
-          Email:<span> </span>
-        </label>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={changeEmail}
-        />
-        <br />
+            <div className="homeText">BandCat Instruments - Sign Up</div>
+          </div>
+        </div>
+        {/* <div className="topBox">
+            
+            <div className="homeText">BandCat Instruments - Login</div>
+          </div>
+     */}
+        <div className="historyBox" >
+          <div className="bodyText">
+            <form className="center" style={{ margin: '25px 0px' }}>
+              {/* Input For User Fields */}
 
-        {/* Phone Number*/}
-        <label>
-          Phone Number:<span> </span>
-        </label>
-        <input
-          type="text"
-          placeholder="Phone Number"
-          name="phoneNumber"
-          value={phoneNumber}
-          onChange={changePhoneNumber}
-        />
-        <br />
+              {/* Username*/}
+              <label>
+                Username:<span> </span>
+              </label>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={changeUsername}
+              />
+              <br /><br />
 
-        {/* Instrument Selector*/}
-        <label>
-          Instrument:<span> </span>
-        </label>
-        <select
-          id="instrument_name"
-          value={instrument}
-          onChange={changeInstrument}
-        >
-          <option value={InstrumentOptions.BASS}>Bass</option>
-          <option value={InstrumentOptions.CLARINET}>Clarinet</option>
-          <option value={InstrumentOptions.DRUMS}>Drums</option>
-          <option value={InstrumentOptions.GUITAR}>Guitar</option>
-          <option value={InstrumentOptions.HARMONICA}>Harmonica</option>
-          <option value={InstrumentOptions.PIANO}>Piano</option>
-          <option value={InstrumentOptions.SAXOPHONE}>Saxophone</option>
-          <option value={InstrumentOptions.SINGER}>Singer</option>
-          <option value={InstrumentOptions.TRUMPET}>Trumpet</option>
-        </select>
-        <br />
+              {/* Password*/}
+              <label>
+                Password:<span> </span>
+              </label>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={changePassword}
+              />
+              <br /><br />
 
-        {/* Confidence selector*/}
-        <label>
-          Confidence:<span> </span>
-        </label>
-        <select id="confidence" value={confidence} onChange={changeConfidence}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
-        </select>
-        <br />
+              {/* Email*/}
+              <label>
+                Email:<span> </span>
+              </label>
+              <input
+                type="text"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={changeEmail}
+              />
+              <br /><br />
 
-        {/* Register Button, when clicked send the info*/}
-        <button type="button" onClick={sendInfo}>
-          Register
-        </button>
+              {/* Phone Number*/}
+              <label>
+                Phone Number:<span> </span>
+              </label>
+              <input
+                type="text"
+                placeholder="Phone Number"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={changePhoneNumber}
+              />
+              <br /><br />
 
-        {/* Example of how to link other "pages" via a button click*/}
-        <Link to="/login">
-          <button type="button">Hi</button>
-        </Link>
-      </form>
+              {/* Instrument Selector*/}
+              <label>
+                Instrument:<span> </span>
+              </label>
+              <select
+                id="instrument_name"
+                value={instrument}
+                onChange={changeInstrument}
+              >
+                <option value={InstrumentOptions.BASS}>Bass</option>
+                <option value={InstrumentOptions.CLARINET}>Clarinet</option>
+                <option value={InstrumentOptions.DRUMS}>Drums</option>
+                <option value={InstrumentOptions.GUITAR}>Guitar</option>
+                <option value={InstrumentOptions.HARMONICA}>Harmonica</option>
+                <option value={InstrumentOptions.PIANO}>Piano</option>
+                <option value={InstrumentOptions.SAXOPHONE}>Saxophone</option>
+                <option value={InstrumentOptions.SINGER}>Singer</option>
+                <option value={InstrumentOptions.TRUMPET}>Trumpet</option>
+              </select>
+              <br /><br />
+
+              {/* Confidence selector*/}
+              <label>
+                Confidence:<span> </span>
+              </label>
+              <select id="confidence" value={confidence} onChange={changeConfidence}>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                <option value={7}>7</option>
+                <option value={8}>8</option>
+                <option value={9}>9</option>
+                <option value={10}>10</option>
+              </select>
+              <br /><br />
+
+              {/* Register Button, when clicked send the info*/}
+              <button type="button" onClick={sendInfo}>
+                Register
+              </button>
+              <br /><br />
+              {/* Example of how to link other "pages" via a button click*/}
+              <Link to="/login">
+                <button type="button">Login</button>
+              </Link>
+            </form>
+          </div>
+        </div>
+          <img className="bottomCorner" src={require('../pics/bottomCorner.png')}></img>
+      </div>
     </>
   );
 }
