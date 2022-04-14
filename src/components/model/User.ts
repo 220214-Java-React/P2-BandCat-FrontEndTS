@@ -3,10 +3,10 @@ import Instrument from "./Instrument";
 export default interface User
 {
     userID?: number;
-    username: string;
-    password: string;
-    email: string;
-    phoneNumber: string;
+    username?: string;
+    password?: string;
+    email?: string;
+    phoneNumber?: string;
     instrument?: Instrument;
 }
 
