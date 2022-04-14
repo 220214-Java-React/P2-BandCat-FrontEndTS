@@ -6,6 +6,10 @@ import SignUp from './components/SignUp';
 import User from './components/model/User';
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import Search from './components/Search';
+import background from "./pics/KUBU.png";
+import { render } from '@testing-library/react';
+import './login.css';
+
 
 function App() {
 
@@ -18,7 +22,7 @@ function App() {
       <Routes>
         {/* Login Page */}
         <Route path='/login' element={<Login currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
-        
+
         {/* Sign Up Page */}
         <Route path='/signUp' element={<SignUp />}/>
 
