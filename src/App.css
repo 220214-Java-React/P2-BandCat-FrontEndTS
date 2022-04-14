@@ -39,14 +39,6 @@
 
 
 /* AUTHOR - Christian --------------------------*/ 
-/* Sets the font and color of most text on the website */
-.homeText {
-  color: rgb(0, 0, 0);
-  text-align: center;
-  font-size: x-large;
-  margin: 30px 0px;
-  
-}
 
 /* Aligns text to the center */
 .center {
@@ -66,7 +58,19 @@
   float: left;
   border-radius: 50%;
   margin: 15px -10px;
+  position: fixed; 
+  top: 0px; 
+  left: 0px;
+}
+.bottomCorner {
+
+  float: right;
+  position: fixed; 
+  bottom: 0px; 
+  right: 0px;
   
+  width: 350px;
+  height: 75px;
 }
 
 /* background color */
@@ -101,13 +105,29 @@
   border-bottom: 1px solid #dddddd;
 }
 
+/* Sets the font and color of most text on the website */
+.homeText {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: xxx-large;
+  margin: 30px 0px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+}
+.bodyText {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: x-large;
+  margin: 30px 0px;
+  font-family: "Times New Roman", Times, serif;
+}
 
 /* Housing boxes for the information on all pages. (Most have their own some share) */
 .topBox {
   position: relative;
-  width: 900px;
+  width: 700px;
   height: 100px;
-  margin: 0px 28%;
+  margin: 0px 31%;
   background: rgba(150, 8, 168, 0.842);
   float: center;
   box-sizing: border-box;
@@ -117,8 +137,22 @@
 
 }
 
+.historyBox {
+  position: relative;
+  width: 750px;
+  height: 500px;
+  margin: 50px 30%;
+
+  background: rgba(150, 8, 168, 0.842);
+  float: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgb(100, 2, 2);
+}
+
 .backgroundColor{
   background-color: black;
-  min-height: 100vh;
+  min-height: 200vh;
   color: white;
 }

@@ -67,22 +67,19 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
   return loginSuccess ? (<Navigate to="/search" />) :
     (
       <>
+        {/* Author: Christian | style setup */}
         <div className="backgroundColor">
-          <img className="bandCat" src={require('../KUBU.png')}></img>
+          <img className="bandCat" src={require('../pics/KUBU.png')}></img>
           <div className="center">
-            
+
             <br></br>
             <br></br>
-          <div className="topBox">
-            
-            <div className="homeText">BandCat Instruments - Login</div>
-          </div>
-          <br></br>
-          <br></br>
+            <div className="topBox">
 
-            {/* style={{ backgroundImage: `url(${'./KUBU.png'})`,
-                  width: '100px' }} IMPORTANT TAKE A LOOK AT LATER!!!*/}
-
+              <div className="homeText">BandCat Instruments - Login</div>
+            </div>
+            <br></br>
+            <br></br>
 
 
             {/* <header className="App-header">
@@ -99,33 +96,34 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
       </header> */}
 
             {/* Login Form */}
-            <form>
+            <div className="topBox">
 
-              {/* Username Field */}
-              <input type="text" placeholder="username" name="username" value={inputFields.username} onChange={getInput} />
-              <br />
+              <form style={{ margin: '10px 0px' }}>
 
-              {/* Password Field */}
-              <input type="password" placeholder="password" name="password" value={inputFields.password} onChange={getInput} />
-              <br />
+                {/* Username Field */}
+                <input type="text" placeholder="username" name="username" value={inputFields.username} onChange={getInput} />
+                <br />
 
-            </form>
+                {/* Password Field */}
+                <input type="password" placeholder="password" name="password" value={inputFields.password} onChange={getInput} />
+                <br />
 
-            {/* Login Button, submits login info */}
-            <button type="button" onClick={login}>Login</button>
+              </form>
+
+              {/* Login Button, submits login info */}
+              <button type="button" onClick={login}>Login</button>
 
 
-            {/* Sign Up Button, switches to sign up page */}
-            <Link to={"/signUp"}>
-              <button type="button">Sign Up</button>
-            </Link>
-            {/* <div style={{ backgroundImage: "url(/KUBU.png)" }}>
-          hello world
-        </div> */}
-
+              {/* Sign Up Button, switches to sign up page */}
+              <Link to={"/signUp"}>
+                <button type="button">Sign Up</button>
+              </Link>
+            </div>
           </div>
-
+          <img className="bottomCorner" src={require('../pics/bottomCorner.png')}></img>
         </div>
+
+
 
 
 
