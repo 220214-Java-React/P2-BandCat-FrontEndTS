@@ -1,4 +1,4 @@
-import { Navigate, useHref } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import InstrumentOptions from "../model/InstrumentOptions";
 import User from "../model/User";
 import {useEffect, useState} from "react";
@@ -7,6 +7,7 @@ import ByInstrument from "./ByInstrument";
 import Instrument from "../model/Instrument";
 import axios from "axios";
 import ShowUsers from "./ShowUsers";
+
 
 // Interface concerning currentUser state from App.tsx
 interface Props
@@ -135,11 +136,14 @@ export default function Search({currentUser, setCurrentUser}: Props)
             {/* Search Button */}
             <button type="button" onClick={search}>Search</button>
 
+            <Link to={"/userProfile"}>
+                <button type="button">User Profile</button>
+            </Link>
+        
             <button type="button" onClick={logout}  >Logout</button>
-            {/* <Link to="/login">
-                <button type="button">Login</button>
-              </Link> */}
+
             
+
         </>
         );
     }

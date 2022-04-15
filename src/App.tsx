@@ -8,6 +8,7 @@ import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom
 import Search from './components/SearchComps/Search';
 import { render } from '@testing-library/react';
 import './login.css';
+import UserProfile from './components/ProfileComps/UserProfile';
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
 
           {/* Search Page */}
           <Route path='/search' element={<Search currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          
+          {/* User Profile Page */}
+          <Route path='/userProfile' element={<UserProfile currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 
         </Routes>
       </BrowserRouter>

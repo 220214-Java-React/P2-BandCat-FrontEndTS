@@ -16,7 +16,6 @@ export default function ShowUsers({user} : Props)
         {user?.email}                       <span>     </span>
         {user?.phoneNumber}                 <span>     </span>
         {user?.instrument?.instrumentName}  <span>     </span>
-        {user?.instrument?.instrumentName}  <span>     </span>
         {user?.instrument?.confidence}
     </div>
     </>);
