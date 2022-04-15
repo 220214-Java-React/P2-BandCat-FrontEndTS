@@ -13,6 +13,9 @@ export default function ShowUsers({user} : Props)
     <>
     <div>
         {user?.username}                    <span>     </span>
+        {user?.email}                       <span>     </span>
+        {user?.phoneNumber}                 <span>     </span>
+        {user?.instrument?.instrumentName}  <span>     </span>
         {user?.instrument?.instrumentName}  <span>     </span>
         {user?.instrument?.confidence}
     </div>
