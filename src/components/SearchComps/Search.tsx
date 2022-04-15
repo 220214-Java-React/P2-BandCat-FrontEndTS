@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useHref } from "react-router-dom";
 import InstrumentOptions from "../model/InstrumentOptions";
 import User from "../model/User";
 import {useEffect, useState} from "react";
@@ -57,7 +57,11 @@ export default function Search({currentUser, setCurrentUser}: Props)
             setSearchCriteria(0);
         }
     }
-
+    function logout(){
+        setCurrentUser = null;
+        window.location.href = '/login'
+        
+        }
 
     // When search button is pressed
     async function search()
@@ -99,6 +103,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
 
                 break;
         }
+
     }
 
     // Contain functionality 
@@ -129,6 +134,11 @@ export default function Search({currentUser, setCurrentUser}: Props)
 
             {/* Search Button */}
             <button type="button" onClick={search}>Search</button>
+
+            <button type="button" onClick={logout}  >Logout</button>
+            {/* <Link to="/login">
+                <button type="button">Login</button>
+              </Link> */}
             
         </>
         );
