@@ -76,10 +76,17 @@ export default function Search({currentUser, setCurrentUser}: Props)
                 // NEEDS WORK ↓↓↓↓
             case 1:
                 // axios for instrument
-                let foundInstruments = await axios.get("http://localhost:8080/instruments/all")
+                let foundUsers = await axios.post("http://localhost:8080/instruments/findUsers",
+                JSON.stringify(instrumentToSearch),
+                {
+                  headers: {
+                    "Content-Type": "application/json;charset=UTF-8",
+                  },
+                }
+              )
                 .then((response) => response.data);
 
-                setUsersFound(foundInstruments);
+                setUsersFound(foundUsers);
 
                 break;
         }
