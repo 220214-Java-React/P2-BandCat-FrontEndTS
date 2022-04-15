@@ -64,7 +64,7 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
 
 
   // What to show => if login was a success, navigate to search page, otherwise, show login
-  return loginSuccess ? (<Navigate to="/search" />) :
+  return loginSuccess ? (<Navigate to="/userProfile" />) :
     (
       <>
         {/* Author: Christian | style setup */}

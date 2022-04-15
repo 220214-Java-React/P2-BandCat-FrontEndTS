@@ -30,7 +30,7 @@ export default function ByInstrument({instrumentToSearch, setInstrumentToSearch}
             value={instrumentToSearch?.instrumentName}
             onChange={changeSearch}
             >
-                <option value={InstrumentOptions.NONE}></option>
+                <option value={InstrumentOptions.NONE}>All</option>
                 <option value={InstrumentOptions.BASS}>Bass</option>
                 <option value={InstrumentOptions.CLARINET}>Clarinet</option>
                 <option value={InstrumentOptions.DRUMS}>Drums</option>
@@ -52,7 +52,7 @@ export default function ByInstrument({instrumentToSearch, setInstrumentToSearch}
             value={instrumentToSearch?.confidence}
             onChange={changeSearch}
              >
-                <option value={0}></option>
+                <option value={0}>All</option>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
                 <option value={3}>3</option>
