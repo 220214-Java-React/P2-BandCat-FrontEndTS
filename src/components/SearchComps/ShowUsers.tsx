@@ -1,15 +1,20 @@
+import Instrument from "../model/Instrument";
 import User from "../model/User";
 
 interface Props
 {
-    usersFound: User[] | null
+    user: User | null
 }
 
-// Will show Users after searching
-export default function ShowUsers({usersFound} : Props)
+// Shows User's info
+export default function ShowUsers({user} : Props)
 {
-    return(
+    return (
     <>
-
+    <div>
+        {user?.username}                    <span>     </span>
+        {user?.instrument?.instrumentName}  <span>     </span>
+        {user?.instrument?.confidence}
+    </div>
     </>);
 }

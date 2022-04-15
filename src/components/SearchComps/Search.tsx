@@ -23,6 +23,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
     // Username to search by
     const [usernameToSearch, setUsernameToSearch] = useState('');
 
+    // Instrument to search by
     const [instrumentToSearch, setInstrumentToSearch] = useState<Instrument>(
         {
             instrumentName: InstrumentOptions.BASS,
@@ -30,40 +31,62 @@ export default function Search({currentUser, setCurrentUser}: Props)
         }
     );
 
-    const [usersFound, setUsersFound] = useState<User[]>([]);
+    // List of Users that were found from DB
+    const [usersFound, setUsersFound] = useState<User[] | null[]>([]);
 
+    // Hooks to keep track of state
     useEffect(() => console.log(usersFound), [usersFound]);
     useEffect(() => console.log(instrumentToSearch), [instrumentToSearch]);
+
+    // Dynamically update usersFound during input
+    useEffect(() => {search()}, [usernameToSearch]);
 
     // Changes search criteria
     function changeSearch()
     {
         if (searchCriteria == 0)
+        {
+            setUsersFound([]);
+            setUsernameToSearch('');
             setSearchCriteria(1);
+        }
         else setSearchCriteria(0);
     }
+
 
     // When search button is pressed
     async function search()
     {
+        setUsersFound([]);
         // Axios request for users using usernameToSearch
         switch(searchCriteria)
         {
             case 0:
-                // axios for username
-                let foundUser = await axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
-                .then((response) => response.data);
+                if (usernameToSearch)
+                {
+                    // axios for username
+                    let foundUser = await axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
+                    .then((response) => response.data);
 
-                setUsersFound(usersFound => [...usersFound, foundUser]);
+                    setUsersFound(usersFound => [...usersFound, foundUser]);
+                }
 
                 break;
 
+                // NEEDS WORK ↓↓↓↓
             case 1:
                 // axios for instrument
-                let foundInstruments = await axios.get("http://localhost:8080/instruments/all")
+                let foundUsers = await axios.post("http://localhost:8080/instruments/findUsers",
+                JSON.stringify(instrumentToSearch),
+                {
+                  headers: {
+                    "Content-Type": "application/json;charset=UTF-8",
+                  },
+                }
+              )
                 .then((response) => response.data);
 
-                setUsersFound(foundInstruments);
+                setUsersFound(foundUsers);
 
                 break;
         }
@@ -89,8 +112,13 @@ export default function Search({currentUser, setCurrentUser}: Props)
             <ByUsername usernameToSearch={usernameToSearch} setUsernameToSearch={setUsernameToSearch}/>: 
             <ByInstrument instrumentToSearch={instrumentToSearch} setInstrumentToSearch={setInstrumentToSearch}/>}
 
-            {usersFound ? <ShowUsers usersFound={usersFound}/> : null}
+            {/* Conditional render based on if users were found => if they were, show each one's info, otherwise, don't */}
+            {usersFound ? 
+            (<div>
+                {usersFound.map((user) => (<ShowUsers user={user} key="{user}" />))}
+            </div>): null}
 
+            {/* Search Button */}
             <button type="button" onClick={search}>Search</button>
             
         </>
