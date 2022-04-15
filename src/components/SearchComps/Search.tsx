@@ -58,7 +58,11 @@ export default function Search({currentUser, setCurrentUser}: Props)
             setSearchCriteria(0);
         }
     }
-
+    function logout(){
+        setCurrentUser = null;
+        window.location.href = '/login'
+        
+        }
 
     // When search button is pressed
     async function search()
@@ -100,6 +104,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
 
                 break;
         }
+
     }
 
     // Contain functionality 
@@ -134,6 +139,11 @@ export default function Search({currentUser, setCurrentUser}: Props)
             <Link to={"/userProfile"}>
                 <button type="button">User Profile</button>
             </Link>
+        
+            <button type="button" onClick={logout}  >Logout</button>
+
+            
+
         </>
         );
     }
