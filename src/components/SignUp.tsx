@@ -30,7 +30,8 @@ export default function SignUp() {
   }
 
   // When Sign Up Button is Pressed
-  async function sendInfo() {
+  async function sendInfo() 
+  {
     // Initialize User object with typed information
     let userToCreate: User = {
       username: inputFields.username,
@@ -39,49 +40,84 @@ export default function SignUp() {
       phoneNumber: inputFields.phoneNumber
     };
 
-    // POST request to API with user info, set headers to JSON, and retrieve the User back
-    let userReturned = await baseURL
+
+    // Check properties of user object, ensure it has values
+    let isValid = Object.values(userToCreate).every(value => 
+    {
+        if (!value)
+            return false;
+        else
+            return true;
+    });
+
+    // If sign up info has values
+    if (isValid)
+    {
+      // POST request to API with user info, set headers to JSON, and retrieve the User back
+      let userReturned = await baseURL
       .post("/users", JSON.stringify(userToCreate), {
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
         },
       })
-      .then((response) => response.data);
-
-    console.log(userReturned);
-
-    // Initialize Instrument object with selected information
-    let instrumentForUser: Instrument = {
-      instrumentID: userReturned.userID, // Assign ID for DB mapping
-      instrumentName: inputFields.instrumentName,
-      confidence: inputFields.confidence
-    };
-
-    // POST request to API with instrument info, set JSON header
-    await baseURL
-      .post(
-        "/instruments/" + instrumentForUser.instrumentID,
-        JSON.stringify(instrumentForUser),
-        {
-          headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-        }
-      )
       .then((response) => response.data)
-      .then((data) => console.log(data));
+      .catch(() => alert("Something went wrong while Signing Up. Try again"));
 
-    // Check response here, need a check for response status to update singUpSuccess state variable
+      // If there is a User taht was returned, continue sign up process
+      if (userReturned)
+      {
+        // Initialize Instrument object with selected information
+        let instrumentForUser: Instrument = {
+          instrumentID: userReturned.userID, // Assign ID for DB mapping
+          instrumentName: inputFields.instrumentName,
+          confidence: inputFields.confidence
+        };
 
-    // State Variable for Success of Sign Up
-    setSignUpSuccess(true);
+        // If the ID isn't 0 meaning there was User found, continue
+        if (instrumentForUser.instrumentID != 0)
+        {
+          // POST request to API with instrument info, set JSON header
+          await baseURL.post
+          (
+            "/instruments/" + instrumentForUser.instrumentID,
+            JSON.stringify(instrumentForUser),
+            {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+              },
+            }
+          )
+          .then((response) => response.data)
+          .catch(() => 
+          {
+            // Alert User an error occured during sign up
+            alert("Couldn't set the Instrument. Try again.");
+            return;
+          });
+
+          // State Variable for Success of Sign Up
+          setSignUpSuccess(true);
+        }
+        else 
+        {
+          alert("No User was found to assign Instrument to.");
+        }
+      }
+      else 
+      {
+        alert("No User was found.");
+      }
+    }
+    else
+    {
+      alert("Missing a field.");
+    }
   }
 
   // What to show
   // If sign up was a succes -> go to login page, otherwise show the sign up form
-  return signUpSuccess ? (
-    <Navigate to="/login" />
-  ) : (
+  return signUpSuccess ? (<Navigate to="/login" />) : 
+  (
     <>
       <div className="backgroundColor">
         <img className="bandCat" src={require('../pics/KUBU.png')}></img>
@@ -99,6 +135,7 @@ export default function SignUp() {
 
         <div className="historyBox" >
           <div className="bodyText">
+            
             <form className="center" style={{ margin: '25px 0px' }}>
               {/* Input For User Fields */}
 
@@ -208,6 +245,7 @@ export default function SignUp() {
                 <button type="button">Login</button>
               </Link>
             </form>
+
           </div>
         </div>
           <img className="bottomCorner" src={require('../pics/bottomCorner.png')}></img>
