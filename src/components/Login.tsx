@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import User from "./model/User";
 import background from "./KUBU.png";
+import { baseURL } from "./URL";
 
 // Props to update the current user
 interface Props {
@@ -40,7 +41,7 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
     }
 
     // Check info in API
-    let returnedUser = await axios.post('http://localhost:8080/login',
+    let returnedUser = await baseURL.post('/login',
       JSON.stringify(checkUser),
       {
         'headers':
@@ -80,20 +81,6 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
             </div>
             <br></br>
             <br></br>
-
-
-            {/* <header className="App-header">
-        <nav><img src="KUBU.png" className="bandCat"></img></nav>
-
-        <div className="topBox">
-
-          <nav className="homeText">
-            <h1 className="center">BandCat Instruments - Home</h1>
-          </nav>
-          <nav><img src="KUBU.png" className="bandCat"></img></nav>
-
-        </div>
-      </header> */}
 
             {/* Login Form */}
             <div className="topBox">

@@ -7,6 +7,7 @@ import ByInstrument from "./ByInstrument";
 import Instrument from "../model/Instrument";
 import axios from "axios";
 import ShowUsers from "./ShowUsers";
+import { baseURL } from "../URL";
 
 
 // Interface concerning currentUser state from App.tsx
@@ -76,7 +77,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
                 if (usernameToSearch)
                 {
                     // axios for username
-                    let foundUser = await axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
+                    let foundUser = await baseURL.get("/users/byUsername/" + usernameToSearch)
                     .then((response) => response.data);
 
                     setUsersFound(usersFound => [...usersFound, foundUser]);
@@ -89,7 +90,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
                 if (!(instrumentToSearch.confidence == 0 && instrumentToSearch.instrumentName == InstrumentOptions.NONE))
                 {
                     // axios for instrument
-                    let foundUsers = await axios.post("http://localhost:8080/instruments/findUsers",
+                    let foundUsers = await baseURL.post("/instruments/findUsers",
                     JSON.stringify(instrumentToSearch),
                     {
                       headers: {
