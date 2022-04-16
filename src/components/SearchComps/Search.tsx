@@ -7,6 +7,7 @@ import ByInstrument from "./ByInstrument";
 import Instrument from "../model/Instrument";
 import axios from "axios";
 import ShowUsers from "./ShowUsers";
+import { baseURL } from "../URL";
 
 
 // Interface concerning currentUser state from App.tsx
@@ -18,6 +19,13 @@ interface Props
 
 export default function Search({currentUser, setCurrentUser}: Props)
 {
+    // Logout User
+    function logout()
+    {
+        setCurrentUser(null);
+        <Navigate to='/login' />
+    }
+
     // Search criteria
     const [searchCriteria, setSearchCriteria] = useState(0);
 
@@ -45,6 +53,7 @@ export default function Search({currentUser, setCurrentUser}: Props)
     // Changes search criteria
     function changeSearch()
     {
+        // Change to By Instrument
         if (searchCriteria == 0)
         {
             setUsersFound([]);
@@ -53,55 +62,72 @@ export default function Search({currentUser, setCurrentUser}: Props)
         }
         else 
         {
+            // Change to By Username
             setUsersFound([]);
             setUsernameToSearch('');
             setSearchCriteria(0);
         }
     }
-    function logout(){
-        setCurrentUser = null;
-        window.location.href = '/login'
-        
-        }
 
     // When search button is pressed
     async function search()
     {
+        // Reset the Users found
         setUsersFound([]);
+
         // Axios request for users using usernameToSearch
         switch(searchCriteria)
         {
+            // By Username
             case 0:
                 if (usernameToSearch)
                 {
                     // axios for username
-                    let foundUser = await axios.get("http://localhost:8080/users/byUsername/" + usernameToSearch)
-                    .then((response) => response.data);
+                    let foundUser = await baseURL.get("/users/byUsername/" + usernameToSearch)
+                    .then((response) => response.data)
+                    .catch(() => 
+                    {
+                        alert("Something went wrong while Searching by Username. Try again"); 
+                        return;
+                    });
 
-                    setUsersFound(usersFound => [...usersFound, foundUser]);
+                    // If a User was found
+                    if (foundUser)
+                    {
+                        setUsersFound(usersFound => [...usersFound, foundUser]); // Set array of found Users
+                    }
                 }
-
                 break;
 
-                // NEEDS WORK ↓↓↓↓
+            // By Instrument
             case 1:
 
                 if (!(instrumentToSearch.confidence == 0 && instrumentToSearch.instrumentName == InstrumentOptions.NONE))
                 {
                     // axios for instrument
-                    let foundUsers = await axios.post("http://localhost:8080/instruments/findUsers",
-                    JSON.stringify(instrumentToSearch),
+                    let foundUsers = await baseURL.post
+                    (
+                        "/instruments/findUsers",
+                        JSON.stringify(instrumentToSearch),
+                        {
+                            headers: 
+                            {
+                                "Content-Type": "application/json;charset=UTF-8",
+                            },
+                        }
+                    )
+                    .then((response) => response.data)
+                    .catch(() => 
                     {
-                      headers: {
-                        "Content-Type": "application/json;charset=UTF-8",
-                      },
-                    }
-                  )
-                    .then((response) => response.data);
+                        alert("Something went wrong while Searching by Instrument. Try again"); 
+                        return;
+                    });
     
-                    setUsersFound(foundUsers);
+                    if (foundUsers)
+                    {
+                        setUsersFound(foundUsers);
+                    }
                 }
-
                 break;
         }
 
@@ -141,9 +167,6 @@ export default function Search({currentUser, setCurrentUser}: Props)
             </Link>
         
             <button type="button" onClick={logout}  >Logout</button>
-
-            
-
         </>
         );
     }

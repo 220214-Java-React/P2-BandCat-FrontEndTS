@@ -13,11 +13,13 @@ interface Props {
 
 // Function to handle the login process
 export default function UserProfile({ currentUser, setCurrentUser }: Props) {
-    function logout(){
-        setCurrentUser = null;
-        window.location.href = '/login'
 
-        }
+    // Logout User
+    function logout(){
+        setCurrentUser(null);
+        <Navigate to='/login' />
+
+    }
 
     return currentUser ? (<>
         <div className="backgroundColor">
@@ -35,9 +37,11 @@ export default function UserProfile({ currentUser, setCurrentUser }: Props) {
 
                     <div style={{ margin: '10px 0px' }}>
 
-                        {currentUser ? <ShowProf user={currentUser} /> : null}
+                        {/* Show the User's information */}
+                        <ShowProf user={currentUser} />
 
 
+                        {/* Search Page */}
                         <Link to={"/search"}>
                             <button type="button">Search</button>
                         </Link>

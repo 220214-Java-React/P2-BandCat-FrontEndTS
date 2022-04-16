@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import User from "./model/User";
 import background from "./KUBU.png";
+import { baseURL } from "./URL";
 
 // Props to update the current user
 interface Props {
@@ -39,25 +40,41 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
       password: inputFields.password
     }
 
-    // Check info in API
-    let returnedUser = await axios.post('http://localhost:8080/login',
-      JSON.stringify(checkUser),
-      {
-        'headers':
-        {
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      })
-      .then((response) => response.data);
+    // Check properties of user object, ensure it has values
+    let isValid = Object.values(checkUser).every(value => 
+      {if (!value)
+              return false;
+          else
+              return true;});
 
-    // Check Login Success, if ID is 0 => login failed, otherwise, set up necessary login variables
-    returnedUser.userID == 0 ?
-      (console.log("LOGIN FAILED")) :
-      (setUp(returnedUser));
+    // If login info has values
+    if (isValid)
+    {
+      // Check info in API
+      let returnedUser = await baseURL.post('/login',
+        JSON.stringify(checkUser),
+        {
+          'headers':
+          {
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+        })
+        .then((response) => response.data)
+        .catch(() => alert("Something went wrong while logging in. Try again"));
+
+        if (returnedUser)
+        {
+          // Check Login Success, if ID is 0 => login failed, otherwise, set up necessary login variables
+          returnedUser.userID == 0 ?
+            (console.log(returnedUser)) :
+            (setUp(returnedUser));
+        }
+    }
   }
 
   // Set log in variables
-  function setUp(returnedUser: User) {
+  function setUp(returnedUser: User) 
+  {
     setCurrentUser(returnedUser); // Update current user
     setLoginSuccess(true);        // Set log in success to true
   }
@@ -80,20 +97,6 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
             </div>
             <br></br>
             <br></br>
-
-
-            {/* <header className="App-header">
-        <nav><img src="KUBU.png" className="bandCat"></img></nav>
-
-        <div className="topBox">
-
-          <nav className="homeText">
-            <h1 className="center">BandCat Instruments - Home</h1>
-          </nav>
-          <nav><img src="KUBU.png" className="bandCat"></img></nav>
-
-        </div>
-      </header> */}
 
             {/* Login Form */}
             <div className="topBox">
@@ -118,14 +121,10 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
               <Link to={"/signUp"}>
                 <button type="button">Sign Up</button>
               </Link>
+
             </div>
           </div>
           <img className="bottomCorner" src={require('../pics/bottomCorner.png')}></img>
         </div>
-
-
-
-
-
       </>);
 }
