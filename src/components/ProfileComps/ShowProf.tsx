@@ -12,13 +12,13 @@ export default function ShowProf({user} : Props)
     return (
     <>
     <div>
-        {user?.email}                       
+        <h3>Email: {user?.email}</h3>
         <br></br>
-        {user?.phoneNumber}                 
+        <h3>Phone Number: {user?.phoneNumber}</h3>
         <br></br>
-        {user?.instrument?.instrumentName}  
+        <h3>Instrument Name: {user?.instrument?.instrumentName}</h3>
         <br></br>
-        {user?.instrument?.confidence}
+        <h3>Confidence Level: {user?.instrument?.confidence}</h3>
     </div>
     </>);
 }
