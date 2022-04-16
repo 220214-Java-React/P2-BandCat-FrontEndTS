@@ -12,11 +12,17 @@ export default function ShowUsers({user} : Props)
     return (
     <>
     <div>
-        {user?.username}                    <span>     </span>
-        {user?.email}                       <span>     </span>
-        {user?.phoneNumber}                 <span>     </span>
-        {user?.instrument?.instrumentName}  <span>     </span>
-        {user?.instrument?.confidence}
+        <b>
+            Username: {user?.username}
+            <br/>
+            Instrument: {user?.instrument?.instrumentName}
+            <br/>
+            Confidence Level: {user?.instrument?.confidence}
+        </b>
+            <br/>
+            Email: {user?.email}
+            <br/>
+            Phone: {user?.phoneNumber}
     </div>
     </>);
 }
