@@ -160,10 +160,10 @@ export default function Search({currentUser, setCurrentUser}: Props)
             </div>): null}
 
             {/* Search Button */}
-            <button type="button" onClick={search}>Search</button>
+            {searchCriteria == 1 ? <button type="button" onClick={search}>Search</button> : null}
 
             <Link to={"/userProfile"}>
-                <button type="button">User Profile</button>
+                <button type="button">My Profile</button>
             </Link>
         
             <button type="button" onClick={logout}  >Logout</button>
