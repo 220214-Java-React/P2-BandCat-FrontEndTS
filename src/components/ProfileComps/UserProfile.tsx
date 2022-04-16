@@ -37,9 +37,11 @@ export default function UserProfile({ currentUser, setCurrentUser }: Props) {
 
                     <div style={{ margin: '10px 0px' }}>
 
-                        {currentUser ? <ShowProf user={currentUser} /> : null}
+                        {/* Show the User's information */}
+                        <ShowProf user={currentUser} />
 
 
+                        {/* Search Page */}
                         <Link to={"/search"}>
                             <button type="button">Search</button>
                         </Link>
