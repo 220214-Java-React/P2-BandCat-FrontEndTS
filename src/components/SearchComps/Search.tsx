@@ -58,11 +58,12 @@ export default function Search({currentUser, setCurrentUser}: Props)
             setSearchCriteria(0);
         }
     }
+
+    // Logout User
     function logout(){
-        setCurrentUser = null;
-        window.location.href = '/login'
-        
-        }
+        setCurrentUser(null);
+        <Navigate to='/login' />
+    }
 
     // When search button is pressed
     async function search()
@@ -83,7 +84,6 @@ export default function Search({currentUser, setCurrentUser}: Props)
 
                 break;
 
-                // NEEDS WORK ↓↓↓↓
             case 1:
 
                 if (!(instrumentToSearch.confidence == 0 && instrumentToSearch.instrumentName == InstrumentOptions.NONE))
@@ -141,9 +141,6 @@ export default function Search({currentUser, setCurrentUser}: Props)
             </Link>
         
             <button type="button" onClick={logout}  >Logout</button>
-
-            
-
         </>
         );
     }
