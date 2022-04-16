@@ -69,6 +69,12 @@ export default function Search({currentUser, setCurrentUser}: Props)
         }
     }
 
+    // Clears Username text box to reset the search
+    function clearUsername()
+    {
+        setUsernameToSearch('');
+    }
+
     // When search button is pressed
     async function search()
     {
@@ -158,6 +164,9 @@ export default function Search({currentUser, setCurrentUser}: Props)
             (<div>
                 {usersFound.map((user) => (<ShowUsers user={user} key="{user}" />))}
             </div>): null}
+
+            {/* Clear Button to reset Username Search */}
+            {usernameToSearch ? (<button type="button" onClick={clearUsername}>Clear</button>) : null}
 
             {/* Search Button */}
             {searchCriteria == 1 ? <button type="button" onClick={search}>Search</button> : null}
