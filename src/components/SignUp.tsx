@@ -10,6 +10,7 @@ export default function SignUp() {
 
   // Success of Sign Up
   const [signUpSuccess, setSignUpSuccess] = useState(false);
+  const [usernameTaken, setUsernameTaken] = useState(false);
   const [inputFields, setInputFields] = useState(
     {
       username: '',
@@ -21,12 +22,28 @@ export default function SignUp() {
     }
   );
 
+  // Checks if Username has already been taken while getting user input for username
+  useEffect(() => {checkUsername()}, [inputFields.username]);
+
   // Gets User input for each field based on its element name
   function getInput(event: any) {
     setInputFields({
       ...inputFields,
       [event.target.name]: event.target.value
     });
+  }
+
+  // Checks if Username is already taken
+  async function checkUsername()
+  {
+    if (inputFields.username)
+    {
+      let userFound = await baseURL.get('/users/byUsername/' + inputFields.username)
+      .then(response => response.data)
+      .catch(() => null);
+  
+      setUsernameTaken(() => userFound ? true : false); 
+    }
   }
 
   // When Sign Up Button is Pressed
@@ -103,10 +120,6 @@ export default function SignUp() {
           alert("No User was found to assign Instrument to.");
         }
       }
-      else 
-      {
-        alert("No User was found.");
-      }
     }
     else
     {
@@ -150,6 +163,9 @@ export default function SignUp() {
                 value={inputFields.username}
                 onChange={getInput}
               />
+              {/* Shows message or not based on whether username has already been taken or not */}
+              {usernameTaken ? <><br/> Username is taken. <br/></> : null}
+
               <br /><br />
 
               {/* Password*/}
