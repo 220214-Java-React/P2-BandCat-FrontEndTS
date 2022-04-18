@@ -114,13 +114,17 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
                 </form>
 
                 {/* Login Button, submits login info */}
-                <button type="button" onClick={login}>Login</button>
+                
+                <div className = "divLoginButtons">
+                <button id = "loginButton" type="button" onClick={login}>Login</button>
                 <br /><br />
 
                 {/* Sign Up Button, switches to sign up page */}
                 <Link to={"/signUp"}>
-                  <button type="button">Sign Up</button>
+                  <button id = "signupButton" type="button">Sign Up</button>
                 </Link>
+
+                </div>
               </div>
             </div>
           </div>
