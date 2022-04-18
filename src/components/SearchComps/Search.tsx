@@ -1,7 +1,7 @@
 import { Navigate, Link } from "react-router-dom";
 import InstrumentOptions from "../model/InstrumentOptions";
 import User from "../model/User";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import ByUsername from "./ByUsername";
 import ByInstrument from "./ByInstrument";
 import Instrument from "../model/Instrument";
@@ -11,17 +11,14 @@ import { baseURL } from "../URL";
 
 
 // Interface concerning currentUser state from App.tsx
-interface Props
-{
-  currentUser: User | null;
-  setCurrentUser: any
+interface Props {
+    currentUser: User | null;
+    setCurrentUser: any
 }
 
-export default function Search({currentUser, setCurrentUser}: Props)
-{
+export default function Search({ currentUser, setCurrentUser }: Props) {
     // Logout User
-    function logout()
-    {
+    function logout() {
         setCurrentUser(null);
         <Navigate to='/login' />
     }
@@ -48,20 +45,17 @@ export default function Search({currentUser, setCurrentUser}: Props)
     useEffect(() => console.log(instrumentToSearch), [instrumentToSearch]);
 
     // Dynamically update usersFound during input
-    useEffect(() => {search()}, [usernameToSearch]);
+    useEffect(() => { search() }, [usernameToSearch]);
 
     // Changes search criteria
-    function changeSearch()
-    {
+    function changeSearch() {
         // Change to By Instrument
-        if (searchCriteria == 0)
-        {
+        if (searchCriteria == 0) {
             setUsersFound([]);
             setUsernameToSearch('');
             setSearchCriteria(1);
         }
-        else 
-        {
+        else {
             // Change to By Username
             setUsersFound([]);
             setUsernameToSearch('');
@@ -70,36 +64,30 @@ export default function Search({currentUser, setCurrentUser}: Props)
     }
 
     // Clears Username text box to reset the search
-    function clearUsername()
-    {
+    function clearUsername() {
         setUsernameToSearch('');
     }
 
     // When search button is pressed
-    async function search()
-    {
+    async function search() {
         // Reset the Users found
         setUsersFound([]);
 
         // Axios request for users using usernameToSearch
-        switch(searchCriteria)
-        {
+        switch (searchCriteria) {
             // By Username
             case 0:
-                if (usernameToSearch)
-                {
+                if (usernameToSearch) {
                     // axios for username
                     let foundUser = await baseURL.get("/users/byUsername/" + usernameToSearch)
-                    .then((response) => response.data)
-                    .catch(() => 
-                    {
-                        alert("Something went wrong while Searching by Username. Try again"); 
-                        return;
-                    });
+                        .then((response) => response.data)
+                        .catch(() => {
+                            alert("Something went wrong while Searching by Username. Try again");
+                            return;
+                        });
 
                     // If a User was found
-                    if (foundUser)
-                    {
+                    if (foundUser) {
                         setUsersFound(usersFound => [...usersFound, foundUser]); // Set array of found Users
                     }
                 }
@@ -108,29 +96,26 @@ export default function Search({currentUser, setCurrentUser}: Props)
             // By Instrument
             case 1:
 
-                if (!(instrumentToSearch.confidence == 0 && instrumentToSearch.instrumentName == InstrumentOptions.NONE))
-                {
+                if (!(instrumentToSearch.confidence == 0 && instrumentToSearch.instrumentName == InstrumentOptions.NONE)) {
                     // axios for instrument
                     let foundUsers = await baseURL.post
-                    (
-                        "/instruments/findUsers",
-                        JSON.stringify(instrumentToSearch),
-                        {
-                            headers: 
+                        (
+                            "/instruments/findUsers",
+                            JSON.stringify(instrumentToSearch),
                             {
-                                "Content-Type": "application/json;charset=UTF-8",
-                            },
-                        }
-                    )
-                    .then((response) => response.data)
-                    .catch(() => 
-                    {
-                        alert("Something went wrong while Searching by Instrument. Try again"); 
-                        return;
-                    });
-    
-                    if (foundUsers)
-                    {
+                                headers:
+                                {
+                                    "Content-Type": "application/json;charset=UTF-8",
+                                },
+                            }
+                        )
+                        .then((response) => response.data)
+                        .catch(() => {
+                            alert("Something went wrong while Searching by Instrument. Try again");
+                            return;
+                        });
+
+                    if (foundUsers) {
                         setUsersFound(foundUsers);
                     }
                 }
@@ -140,47 +125,79 @@ export default function Search({currentUser, setCurrentUser}: Props)
     }
 
     // Contain functionality 
-    function chooseSearch()
-    {
+    function chooseSearch() {
         return (
-        <>
-            {/* Search Criteria Selection */}
-            <label>
-                Criteria:<span> </span>
-            </label>
-            <select name="search" onChange={changeSearch}>
-                <option value={0}>By Username</option>
-                <option value={1}>By Instrument</option>
-            </select>
-            <br />
+            <>
+                {/* Author: Christian | style setup */}
+                <div className="searchBackgroundColor">
+                    <img className="bandCat" src={require('../../pics/KUBU.png')}></img>
+                    <div className="center">
 
-            {/* Conditional render based search criteria => if By Username, show ByUsername component, otherwise, show the ByInstrument component */}
-            {searchCriteria == 0 ? 
-            <ByUsername usernameToSearch={usernameToSearch} setUsernameToSearch={setUsernameToSearch}/>: 
-            <ByInstrument instrumentToSearch={instrumentToSearch} setInstrumentToSearch={setInstrumentToSearch}/>}
+                        <br></br>
+                        <br></br>
+                        <div className="topBox">
 
-            {/* Conditional render based on if users were found => if they were, show each one's info, otherwise, don't */}
-            {usersFound ? 
-            (<div>
-                {usersFound.map((user) => (<ShowUsers user={user} key="{user}" />))}
-            </div>): null}
+                            <div className="homeText">BandCat Instruments - Search</div>
+                        </div>
+                        <br></br>
+                        <br></br>
+                    </div>
 
-            {/* Clear Button to reset Username Search */}
-            {usernameToSearch ? (<button type="button" onClick={clearUsername}>Clear</button>) : null}
+                    <div className="searchBox">
+                        <div className="bodyText">
+                            <form style={{ margin: '10px 0px' }}>
+                                {/* Search Criteria Selection */}
+                                <label>
+                                    Criteria:<span> </span>
 
-            {/* Search Button */}
-            {searchCriteria == 1 ? <button type="button" onClick={search}>Search</button> : null}
+                                </label>
+                                <select name="search" onChange={changeSearch}>
+                                    <option value={0}>By Username</option>
 
-            <Link to={"/userProfile"}>
-                <button type="button">My Profile</button>
-            </Link>
-        
-            <button type="button" onClick={logout}  >Logout</button>
-        </>
+                                    <option value={1}>By Instrument</option>
+                                </select>
+                                <br /><br />
+
+                                {/* Conditional render based search criteria => if By Username, show ByUsername component, otherwise, show the ByInstrument component */}
+                                {searchCriteria == 0 ?
+                                    <ByUsername usernameToSearch={usernameToSearch} setUsernameToSearch={setUsernameToSearch} /> :
+                                    <ByInstrument instrumentToSearch={instrumentToSearch} setInstrumentToSearch={setInstrumentToSearch} />}
+
+                                <br />
+                                {/* Conditional render based on if users were found => if they were, show each one's info, otherwise, don't */}
+                                {usersFound ?
+                                    (<div>
+                                        {usersFound.map((user) => (<ShowUsers user={user} key="{user}" />))}
+
+                                    </div>) : null}
+
+                            </form>
+
+                            {/* Clear Button to reset Username Search */}
+                            {usernameToSearch ? (<button type="button" onClick={clearUsername}>Clear</button>) : null}
+                            <br />
+                            {/* Search Button */}
+                            {searchCriteria == 1 ? <button type="button" onClick={search}>Search</button> : null}
+                            <br /><br />
+                            <Link to={"/userProfile"}>
+                                <button type="button">My Profile</button>
+                            </Link>
+                            <br /><br />
+                            <button type="button" onClick={logout}  >Logout</button>
+                        </div>
+                        <img className="transparentLogo" src={require('../../pics/instrumentLogo.png')}></img>
+
+                    </div>
+
+
+                    <img className="bottomCorner" src={require('../../pics/bottomCorner.png')}></img>
+
+                </div>
+            </>
         );
     }
 
 
     // If there is not a User logged in, go to login page, otherwise allow searching
-    return !currentUser ? (<Navigate to={"/login"}/>) : (chooseSearch());
+    return !currentUser ? (<Navigate to={"/login"} />) : (chooseSearch());
 }

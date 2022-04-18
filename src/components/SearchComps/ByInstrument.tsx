@@ -2,21 +2,19 @@ import Instrument from "../model/Instrument";
 import InstrumentOptions from "../model/InstrumentOptions";
 
 // Properties for the Instrument being searched
-interface Props
-{
-  instrumentToSearch: Instrument | null;
-  setInstrumentToSearch: any;
+interface Props {
+    instrumentToSearch: Instrument | null;
+    setInstrumentToSearch: any;
 }
 
 // Shows the Instrument search component
-export default function ByInstrument({instrumentToSearch, setInstrumentToSearch} : Props)
-{
+export default function ByInstrument({ instrumentToSearch, setInstrumentToSearch }: Props) {
     // Changes Instrument
-    function changeSearch(e : any)
-    {
+    function changeSearch(e: any) {
         setInstrumentToSearch({
             ...instrumentToSearch,
-            [e.target.name]: e.target.value});
+            [e.target.name]: e.target.value
+        });
     }
 
     return (
@@ -25,10 +23,11 @@ export default function ByInstrument({instrumentToSearch, setInstrumentToSearch}
             <label>
                 Instrument:<span> </span>
             </label>
+
             <select
-            name="instrumentName"
-            value={instrumentToSearch?.instrumentName}
-            onChange={changeSearch}
+                name="instrumentName"
+                value={instrumentToSearch?.instrumentName}
+                onChange={changeSearch}
             >
                 <option value={InstrumentOptions.NONE}>All</option>
                 <option value={InstrumentOptions.BASS}>Bass</option>
@@ -41,17 +40,17 @@ export default function ByInstrument({instrumentToSearch, setInstrumentToSearch}
                 <option value={InstrumentOptions.SINGER}>Singer</option>
                 <option value={InstrumentOptions.TRUMPET}>Trumpet</option>
             </select>
-            <br />
+            <br /><br />
 
             {/* Confidence Selector*/}
             <label>
                 Confidence:<span> </span>
             </label>
-            <select 
-            name="confidence"
-            value={instrumentToSearch?.confidence}
-            onChange={changeSearch}
-             >
+            <select
+                name="confidence"
+                value={instrumentToSearch?.confidence}
+                onChange={changeSearch}
+            >
                 <option value={0}>All</option>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -64,7 +63,7 @@ export default function ByInstrument({instrumentToSearch, setInstrumentToSearch}
                 <option value={9}>9</option>
                 <option value={10}>10</option>
             </select>
-            <br />
+
         </div>
     );
 }
