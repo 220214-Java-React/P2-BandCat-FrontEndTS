@@ -41,15 +41,15 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
     }
 
     // Check properties of user object, ensure it has values
-    let isValid = Object.values(checkUser).every(value => 
-      {if (!value)
-              return false;
-          else
-              return true;});
+    let isValid = Object.values(checkUser).every(value => {
+      if (!value)
+        return false;
+      else
+        return true;
+    });
 
     // If login info has values
-    if (isValid)
-    {
+    if (isValid) {
       // Check info in API
       let returnedUser = await baseURL.post('/login',
         JSON.stringify(checkUser),
@@ -62,19 +62,17 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
         .then((response) => response.data)
         .catch(() => alert("Something went wrong while logging in. Try again"));
 
-        if (returnedUser)
-        {
-          // Check Login Success, if ID is 0 => login failed, otherwise, set up necessary login variables
-          returnedUser.userID == 0 ?
-            (console.log(returnedUser)) :
-            (setUp(returnedUser));
-        }
+      if (returnedUser) {
+        // Check Login Success, if ID is 0 => login failed, otherwise, set up necessary login variables
+        returnedUser.userID == 0 ?
+          (console.log(returnedUser)) :
+          (setUp(returnedUser));
+      }
     }
   }
 
   // Set log in variables
-  function setUp(returnedUser: User) 
-  {
+  function setUp(returnedUser: User) {
     setCurrentUser(returnedUser); // Update current user
     setLoginSuccess(true);        // Set log in success to true
   }
@@ -99,29 +97,31 @@ export default function Login({ currentUser, setCurrentUser }: Props) {
             <br></br>
 
             {/* Login Form */}
-            <div className="topBox">
+            <div className="loginBox">
+              <div className="bodyText">
+                <form style={{ margin: '10px 0px' }}>
 
-              <form style={{ margin: '10px 0px' }}>
+                  {/* Username Field */}
+                  <span>Username: </span>
+                  <input type="text" placeholder="username" name="username" value={inputFields.username} onChange={getInput} />
+                  <br /><br />
 
-                {/* Username Field */}
-                <input type="text" placeholder="username" name="username" value={inputFields.username} onChange={getInput} />
-                <br />
+                  {/* Password Field */}
+                  <span>Password: </span>
+                  <input type="password" placeholder="password" name="password" value={inputFields.password} onChange={getInput} />
+                  <br /><br />
 
-                {/* Password Field */}
-                <input type="password" placeholder="password" name="password" value={inputFields.password} onChange={getInput} />
-                <br />
+                </form>
 
-              </form>
+                {/* Login Button, submits login info */}
+                <button type="button" onClick={login}>Login</button>
+                <br /><br />
 
-              {/* Login Button, submits login info */}
-              <button type="button" onClick={login}>Login</button>
-
-
-              {/* Sign Up Button, switches to sign up page */}
-              <Link to={"/signUp"}>
-                <button type="button">Sign Up</button>
-              </Link>
-
+                {/* Sign Up Button, switches to sign up page */}
+                <Link to={"/signUp"}>
+                  <button type="button">Sign Up</button>
+                </Link>
+              </div>
             </div>
           </div>
           <img className="bottomCorner" src={require('../pics/bottomCorner.png')}></img>

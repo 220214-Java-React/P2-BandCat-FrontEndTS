@@ -32,13 +32,14 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 
-/* AUTHOR - Christian --------------------------*/ 
+/* AUTHOR - Christian --------------------------*/
 
 /* Aligns text to the center */
 .center {
@@ -58,20 +59,42 @@
   float: left;
   border-radius: 50%;
   margin: 15px -10px;
-  position: fixed; 
-  top: 0px; 
+  position: fixed;
+  top: 0px;
   left: 0px;
 }
+
 .bottomCorner {
 
   float: right;
-  position: fixed; 
-  bottom: 0px; 
+  position: fixed;
+  bottom: 0px;
   right: 0px;
-  
   width: 350px;
   height: 75px;
 }
+
+.transparentLogo {
+
+  float: left;
+  position: fixed;
+  margin: -255px 0px;
+  left: 50px;
+  width: 75px;
+  height: 325px;
+}
+
+.transparentLogoProf {
+
+  float: left;
+  position: fixed;
+  margin: -350px 0px;
+  left: 50px;
+  width: 75px;
+  height: 325px;
+}
+
+/* end of images section */
 
 /* background color */
 .bandBack {
@@ -110,10 +133,11 @@
   color: rgb(0, 0, 0);
   text-align: center;
   font-size: xxx-large;
-  margin: 30px 0px;
+  margin: 25px 0px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
 }
+
 .bodyText {
   color: rgb(0, 0, 0);
   text-align: center;
@@ -140,7 +164,20 @@
 .historyBox {
   position: relative;
   width: 750px;
-  height: 500px;
+  height: 475px;
+  margin: 50px 30%;
+  background: rgba(150, 8, 168, 0.842);
+  float: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgb(100, 2, 2);
+}
+
+.searchBox {
+  position: relative;
+  width: 750px;
+  height: 5000px;
   margin: 50px 30%;
 
   background: rgba(150, 8, 168, 0.842);
@@ -151,8 +188,28 @@
   box-shadow: 0 0 20px rgb(100, 2, 2);
 }
 
-.backgroundColor{
+.loginBox {
+  position: relative;
+  width: 750px;
+  height: 260px;
+  margin: 50px 30%;
+  background: rgba(150, 8, 168, 0.842);
+  float: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgb(100, 2, 2);
+}
+
+/* Background black colors for all pages */
+.backgroundColor {
   background-color: black;
   min-height: 200vh;
+  color: white;
+}
+
+.searchBackgroundColor {
+  background-color: black;
+  min-height: 600vh;
   color: white;
 }

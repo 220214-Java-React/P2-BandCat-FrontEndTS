@@ -1,16 +1,13 @@
 // Props for Username to search by
-interface Props
-{
-  usernameToSearch: string | null;
-  setUsernameToSearch: any
+interface Props {
+    usernameToSearch: string | null;
+    setUsernameToSearch: any
 }
 
 // Shows the Username searching component
-export default function ByUsername({usernameToSearch, setUsernameToSearch} : Props)
-{
+export default function ByUsername({ usernameToSearch, setUsernameToSearch }: Props) {
     // Changes username being searched
-    function changeSearch(e : any)
-    {
+    function changeSearch(e: any) {
         setUsernameToSearch(e.target.value);
     }
 
@@ -20,7 +17,10 @@ export default function ByUsername({usernameToSearch, setUsernameToSearch} : Pro
             <label>
                 Username:<span> </span>
             </label>
+
             <input type="text" placeholder="Username" value={usernameToSearch ? usernameToSearch : ''} onChange={changeSearch} />
+
         </div>
+
     );
 }

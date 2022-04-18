@@ -15,7 +15,7 @@ interface Props {
 export default function UserProfile({ currentUser, setCurrentUser }: Props) {
 
     // Logout User
-    function logout(){
+    function logout() {
         setCurrentUser(null);
         <Navigate to='/login' />
 
@@ -36,18 +36,22 @@ export default function UserProfile({ currentUser, setCurrentUser }: Props) {
                 <div className="historyBox">
 
                     <div style={{ margin: '10px 0px' }}>
+                        <div className="bodyText">
+                            {/* Show the User's information */}
+                            <ShowProf user={currentUser} />
 
-                        {/* Show the User's information */}
-                        <ShowProf user={currentUser} />
 
+                            {/* Search Page */}
+                            <Link to={"/search"}>
+                                <button type="button">Search</button>
+                            </Link>
+                            <br /><br /><br />
+                            {/* Logout Button */}
+                            <button type="button" onClick={logout}  >Logout</button>
+                        </div>
 
-                        {/* Search Page */}
-                        <Link to={"/search"}>
-                            <button type="button">Search</button>
-                        </Link>
+                        <img className="transparentLogoProf" src={require('../../pics/instrumentLogo.png')}></img>
 
-                        {/* Logout Button */}
-                        <button type="button" onClick={logout}  >Logout</button>
                     </div>
 
 
