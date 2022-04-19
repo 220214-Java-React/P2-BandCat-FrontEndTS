@@ -184,7 +184,7 @@
 .searchBox {
   position: relative;
   width: 750px;
-  height: 5000px;
+  height: cover;
   margin: 50px 30%;
 
   background: rgba(150, 8, 168, 0.842);
@@ -220,7 +220,7 @@
 
 .searchBackgroundColor {
   background-color: black;
-  min-height: 600vh;
+  min-height: 4000vh;
   color: white;
 }
 
